@@ -24,7 +24,7 @@ jobs:
       run: |
         git submodule update --init --recursive
         
-        android-update-sdk --components=android-28
+        
         
         wget  https://s3-us-west-2.amazonaws.com/qgroundcontrol/dependencies/gstreamer-1.0-android-${GSTREAMER_NAME}-1.14.4.tar.bz2 
         tar jxf gstreamer-1.0-android-${GSTREAMER_NAME}-1.14.4.tar.bz2 
