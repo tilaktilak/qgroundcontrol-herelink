@@ -1,0 +1,41 @@
+name: C/C++ CI
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: apt
+      run: sudo apt-get install wget    speech-dispatcher    libgstreamer-plugins-base1.0-dev     libgstreamer1.0-0:amd64     libgstreamer1.0-dev     libudev-dev
+    - name: configure
+      env: 
+        SPEC: android-clang 
+        CONFIG: installer 
+        BITNESS: 64 
+        GSTREAMER_NAME: arm64
+      run: |
+        wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/dependencies/gstreamer-1.0-android-${GSTREAMER_NAME}-1.14.4.tar.bz2 &&
+        tar jxf gstreamer-1.0-android-${GSTREAMER_NAME}-1.14.4.tar.bz2 -C ${TRAVIS_BUILD_DIR} &&
+        wget --quiet https://dl.google.com/android/repository/android-ndk-r20-linux-x86_64.zip &&
+        unzip android-ndk-r20-linux-x86_64.zip > /dev/null &&
+        export ANDROID_NDK_ROOT=`pwd`/android-ndk-r20 &&
+        export ANDROID_SDK_ROOT=/usr/local/android-sdk &&
+        export PATH=`pwd`/android-ndk-r20:$PATH
+        
+        wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/dependencies/Qt5.12.6-android_arm64_v8a-min.tar.bz2 &&
+        tar jxf Qt5.12.6-android_arm64_v8a-min.tar.bz2 -C /tmp &&
+        export PATH=/tmp/Qt5.12-android_arm64_v8a/5.12.6/android_arm64_v8a/bin:$PATH
+        
+        git remote set-branches origin 'master' &&        git fetch --tags origin master &&            ./tools/update_android_version.sh ${BITNESS} master
+        export CONFIG=release;
+        export STABLE_OR_DAILY=StableBuild;
+        qmake -r qgroundcontrol.pro CONFIG+=${CONFIG} CONFIG+=${STABLE_OR_DAILY} CONFIG+=${CODESIGN} -spec ${SPEC}
+        
+    - name: make
+      run: make -j8
+
