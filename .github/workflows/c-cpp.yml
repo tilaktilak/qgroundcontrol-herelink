@@ -6,7 +6,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -38,8 +38,8 @@ jobs:
         tar jxf Qt5.12.6-android_arm64_v8a-min.tar.bz2 -C /tmp 
         export PATH=/tmp/Qt5.12-android_arm64_v8a/5.12.6/android_arm64_v8a/bin:$PATH
         
-        git remote set-branches origin 'master' 
-        git fetch --tags origin master 
+        #git remote set-branches origin 'master' 
+        #git fetch --tags origin master 
         #./tools/update_android_version.sh ${BITNESS} master
         export CONFIG=release;
         export STABLE_OR_DAILY=StableBuild;
