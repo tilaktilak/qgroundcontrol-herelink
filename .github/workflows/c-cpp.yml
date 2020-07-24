@@ -51,7 +51,7 @@ jobs:
         rm -rf gstreamer-1.0-android-armv7-1.5.2
         
         qmake -r $GITHUB_WORKSPACE/qgroundcontrol.pro CONFIG+=${CONFIG} CONFIG+=${STABLE_OR_DAILY} CONFIG+=${CODESIGN} -spec ${SPEC}
-        make -j8
+        make -j8 install INSTALL_ROOT=./android-build/
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
@@ -59,4 +59,4 @@ jobs:
         # Artifact name
         name: package.zip
         # A file, directory or wildcard pattern that describes what to upload
-        path: /tmp/shadow_build_dir/
+        path: /tmp/shadow_build_dir/android-build/
