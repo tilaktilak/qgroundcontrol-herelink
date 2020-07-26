@@ -45,7 +45,6 @@ jobs:
         
         mkdir ${SHADOW_BUILD_DIR} && cd ${SHADOW_BUILD_DIR}
         
-        export CONFIG=release;
         export STABLE_OR_DAILY=StableBuild;   
         
         rm -rf gstreamer-1.0-android-armv7-1.5.2
