@@ -134,11 +134,11 @@ MacBuild {
 
 AndroidBuild {
     contains(QT_ARCH, arm) {
-        ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-armeabi-v7a/lib/libcrypto.so
-        ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-armeabi-v7a/lib/libssl.so
+        #ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-armeabi-v7a/lib/libcrypto.so
+        #ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-armeabi-v7a/lib/libssl.so
     } else {
-        ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-x86/lib/libcrypto.so
-        ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-x86/lib/libssl.so
+        #ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-x86/lib/libcrypto.so
+        #ANDROID_EXTRA_LIBS += $$BASEDIR/libs/AndroidOpenSSL/arch-x86/lib/libssl.so
     }
 }
 
