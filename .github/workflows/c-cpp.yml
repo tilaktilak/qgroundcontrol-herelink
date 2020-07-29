@@ -68,7 +68,7 @@ jobs:
         rm -rf gstreamer-1.0-android-armv7-1.5.2
         
         qmake -r $GITHUB_WORKSPACE/qgroundcontrol.pro CONFIG+=${CONFIG} CONFIG+=thread CONFIG+=${STABLE_OR_DAILY} CONFIG+=${CODESIGN} -spec ${SPEC}
-        make -j8 install
+        make -j8 install | true
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
