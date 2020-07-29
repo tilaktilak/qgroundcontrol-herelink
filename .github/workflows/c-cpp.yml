@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: apt
-      run: sudo apt-get update && sudo apt-get install wget    speech-dispatcher    libgstreamer-plugins-base1.0-dev     libgstreamer1.0-0:amd64     libgstreamer1.0-dev     libudev-dev android-sdk
+      run: sudo apt-get update && sudo apt-get install wget curl    speech-dispatcher    libgstreamer-plugins-base1.0-dev     libgstreamer1.0-0:amd64     libgstreamer1.0-dev     libudev-dev android-sdk
     - name: configure
       env: 
         JOBS: 4
@@ -35,7 +35,15 @@ jobs:
         export ANDROID_SDK_ROOT=/usr/local/android-sdk 
         export PATH=`pwd`/android-ndk-r20:$PATH
         
-        yes | sdkmanager --licenses
+        sdk_version=sdk-tools-linux-4333796.zip
+        
+        mkdir -p ${ANDROID_SDK_ROOT} && \
+        curl --silent --show-error --location --fail --retry 3 --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
+        unzip -q /tmp/${sdk_version} -d ${ANDROID_SDK_ROOT} && \
+        rm /tmp/${sdk_version}
+        
+        mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.android/repositories.cfg
+        yes | sdkmanager --licenses && sdkmanager --update
         
         sdkmanager "build-tools;28.0.3"
         
