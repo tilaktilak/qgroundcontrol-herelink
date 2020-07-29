@@ -25,7 +25,17 @@ jobs:
         set -o xtrace
         git submodule update --init --recursive
         
+        export sdk_version=sdk-tools-linux-4333796.zip
         
+        sudo mkdir -p ${ANDROID_SDK_ROOT} 
+        sudo curl --silent --show-error --location --fail --retry 3 --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} 
+        sudo unzip -q /tmp/${sdk_version} -d ${ANDROID_SDK_ROOT} 
+        sudo rm /tmp/${sdk_version}
+        
+        mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.android/repositories.cfg
+        sudo yes | sdkmanager --licenses && sdkmanager --update
+        
+        sudo sdkmanager "build-tools;28.0.3"
         
         wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/dependencies/gstreamer-1.0-android-${GSTREAMER_NAME}-1.14.4.tar.bz2 
         tar jxf gstreamer-1.0-android-${GSTREAMER_NAME}-1.14.4.tar.bz2 
@@ -33,19 +43,8 @@ jobs:
         unzip android-ndk-r20-linux-x86_64.zip > /dev/null
         export ANDROID_NDK_ROOT=`pwd`/android-ndk-r20 
         export ANDROID_SDK_ROOT=/usr/local/android-sdk 
-        export PATH=`pwd`/android-ndk-r20:$PATH
-        
-        sdk_version=sdk-tools-linux-4333796.zip
-        
-        mkdir -p ${ANDROID_SDK_ROOT} && \
-        curl --silent --show-error --location --fail --retry 3 --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
-        unzip -q /tmp/${sdk_version} -d ${ANDROID_SDK_ROOT} && \
-        rm /tmp/${sdk_version}
-        
-        mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.android/repositories.cfg
-        yes | sdkmanager --licenses && sdkmanager --update
-        
-        sdkmanager "build-tools;28.0.3"
+        export PATH=`pwd`/android-ndk-r20:$PATH        
+
         
         wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/dependencies/Qt5.12.6-android_arm64_v8a-min.tar.bz2 
         tar jxf Qt5.12.6-android_arm64_v8a-min.tar.bz2 -C /tmp 
