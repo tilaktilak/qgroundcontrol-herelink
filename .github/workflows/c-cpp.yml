@@ -60,7 +60,7 @@ jobs:
         
         rm -rf gstreamer-1.0-android-armv7-1.5.2
         
-        qmake -r $GITHUB_WORKSPACE/qgroundcontrol.pro CONFIG+=${CONFIG} CONFIG+=${STABLE_OR_DAILY} CONFIG+=${CODESIGN} -spec ${SPEC}
+        qmake -r $GITHUB_WORKSPACE/qgroundcontrol.pro CONFIG+=${CONFIG} CONFIG+=thread CONFIG+=${STABLE_OR_DAILY} CONFIG+=${CODESIGN} -spec ${SPEC}
         make -j8 install INSTALL_ROOT=./android-build/
 
     - name: Upload a Build Artifact
