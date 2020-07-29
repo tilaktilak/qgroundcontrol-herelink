@@ -77,7 +77,7 @@ LinuxBuild {
     Androidx86Build {
         GST_ROOT = $$PWD/../../gstreamer-1.0-android-x86-1.5.2
     } else {
-        GST_ROOT = $$PWD/../../gstreamer-1.0-android-universal-1.14.4
+        GST_ROOT = $$PWD/../../gstreamer-1.0-android-universal-1.14.4/arm64
     }
     exists($$GST_ROOT) {
         QMAKE_CXXFLAGS  += -pthread
