@@ -35,6 +35,10 @@ jobs:
         export ANDROID_SDK_ROOT=/usr/local/android-sdk 
         export PATH=`pwd`/android-ndk-r20:$PATH
         
+        yes | sdkmanager --licenses
+        
+        sdkmanager "build-tools;28.0.3"
+        
         wget --quiet https://s3-us-west-2.amazonaws.com/qgroundcontrol/dependencies/Qt5.12.6-android_arm64_v8a-min.tar.bz2 
         tar jxf Qt5.12.6-android_arm64_v8a-min.tar.bz2 -C /tmp 
         export PATH=/tmp/Qt5.12-android_arm64_v8a/5.12.6/android_arm64_v8a/bin:$PATH
