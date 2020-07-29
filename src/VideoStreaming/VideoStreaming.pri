@@ -84,7 +84,7 @@ LinuxBuild {
         CONFIG          += VideoEnabled
 
         # We want to link these plugins statically
-        LIBS += -L$$GST_ROOT/lib/gstreamer-1.0/static \
+        LIBS += -L$$GST_ROOT/lib -L$$GST_ROOT/lib/gstreamer-1.0/static \
             -lgstvideo-1.0 \
             -lgstcoreelements \
             -lgstudp \
