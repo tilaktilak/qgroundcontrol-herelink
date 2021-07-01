@@ -104,6 +104,7 @@ public:
     QString             brandImageIndoor                (const Vehicle* vehicle) const override { Q_UNUSED(vehicle); return QStringLiteral("/qmlimages/APM/BrandImage"); }
     QString             brandImageOutdoor               (const Vehicle* vehicle) const override { Q_UNUSED(vehicle); return QStringLiteral("/qmlimages/APM/BrandImage"); }
     bool                supportsTerrainFrame            (void) const override { return true; }
+    const QVariantList& toolBarIndicators(const Vehicle* vehicle) override;
 
 protected:
     /// All access to singleton is through stack specific implementation
@@ -136,6 +137,7 @@ private:
     // Vehicle specific data should go into APMFirmwarePluginInstanceData
 
     QList<APMCustomMode>    _supportedModes;
+    QVariantList _toolBarIndicatorList;
 
     static const char*      _artooIP;
     static const int        _artooVideoHandshakePort;
